@@ -1,0 +1,19 @@
+production:
+  sessions:
+    default:
+      uri: <%= ENV['MONGOHQ_URL'] %>
+      options:
+        skip_version_check: true
+        safe: true
+development:
+  sessions:
+    default:
+      hosts:
+        - localhost:27017
+      database: mylo_development
+test:
+  sessions:
+    default:
+      hosts:
+        - localhost:27017
+      database: mylo_test

@@ -1,5 +1,6 @@
 require 'sinatra/base'
 require 'reddcoin'
+require 'mongoid'
 
 class Mylo < Sinatra::Base
 
@@ -7,6 +8,8 @@ class Mylo < Sinatra::Base
     enable :sessions
 
     set :session_secret, 'MyloApp'
+
+    Mongoid.load!('mongoid.yml')
   end
 
   helpers do

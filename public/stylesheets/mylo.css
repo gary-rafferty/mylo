@@ -1,0 +1,69 @@
+body {
+  //background: url('/images/background.jpg') no-repeat center center fixed;
+  background: url('/images/bench.jpg') no-repeat center center fixed;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+  color:#111;
+  background-color:#333;
+  font-family: 'Cardo', Georgia, Times, serif;
+}
+
+.block {
+  background-color:rgba(0,0,0,0.5);
+  padding: 12px;
+}
+
+.block h1 {
+  text-align:center;
+} 
+
+h1.headline {
+  font-family: 'Allan', Helvetica, Arial, sans-serif;
+  font-size: 90px;
+  line-height: 95px;
+  text-align:center;
+}
+
+h2.tagline {
+  font-family: 'Cardo', Georgia, Times, serif;
+  font-size: 28px;
+  line-height: 35px;
+  text-align:center;
+}
+
+.reddcoin-logo {
+  width: 50px;
+  height: 50px;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.login button {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+h3.feature {
+  font-weight: bold;
+  font-family: 'Allan', Helvetica, Arial, sans-serif;
+  font-size: 54px;
+  color: #fff;
+  text-align:center;
+  text-shadow: 1px 1px 0 #111;
+  text-decoration: underline;
+}
+
+p.description {
+  font-family: 'Cardo', Helvetica, sans-serif;
+  width: 100%;
+  padding:5%;
+  text-align:center;
+  background:rgba(218, 197, 152, 0.5);;
+  color:#111;
+  font-size: 26px;
+  text-shadow: 1px 1px 1px #fff;
+}

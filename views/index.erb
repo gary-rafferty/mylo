@@ -1,3 +1,14 @@
+<script type='text/javascript'>
+  $(function() {
+    $('#loginbutton').facebook_login({
+      appId: '1433703976890742',
+      endpoint: '/sessions/new',
+      onSuccess: function(data) {
+        window.location.href = '/';
+      },
+    });
+  });
+</script>
 <div class='container'>
   <div class='row'>
     <h1 class='headline'>MYLO</h1>
@@ -6,7 +17,7 @@
   </div>
   <br />
   <div class='login'>
-    <button class="btn btn-facebook btn-lg"><i class="fa fa-facebook"></i> | Connect with Facebook</button>
+    <button id='loginbutton' class="btn btn-facebook btn-lg"><i class="fa fa-facebook"></i> | Connect with Facebook</button>
   </div>
   <br />
   <div class='row'>

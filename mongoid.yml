@@ -5,15 +5,21 @@ production:
       options:
         skip_version_check: true
         safe: true
+  options:
+    raise_not_found_error: false
 development:
   sessions:
     default:
       hosts:
         - localhost:27017
       database: mylo_development
+  options:
+    raise_not_found_error: false
 test:
   sessions:
     default:
       hosts:
         - localhost:27017
       database: mylo_test
+  options:
+    raise_not_found_error: false

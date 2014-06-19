@@ -1,6 +1,7 @@
 require 'sinatra/base'
 require 'reddcoin'
 require 'mongoid'
+require 'dotenv'
 
 class User
   include Mongoid::Document
@@ -13,6 +14,21 @@ class User
   index({user_id: 1}, {unique: true, name: 'user_id_index'})
 end
 
+class APIError < Exception; ;end
+
+class ReddcoinAddress
+  class << self
+    def generate username
+      client = Reddcoin::Client.new(get: ENV['GET_KEY'], post: ENV['POST_KEY'])
+      if response = client.create_new_user(username)
+        response['DepositAddress']
+      else
+        raise APIError.new 'Error creating the new address'
+      end
+    end
+  end
+end
+
 class Mylo < Sinatra::Base
 
   configure do
@@ -20,6 +36,7 @@ class Mylo < Sinatra::Base
 
     set :session_secret, 'MyloApp'
 
+    Dotenv.load
     Mongoid.load!('mongoid.yml')
   end
 
@@ -50,16 +67,28 @@ class Mylo < Sinatra::Base
     token = params[:token]
     email = params[:email]
 
-    user = User.find_or_initialize_by(user_id: user_id).tap do |u|
-      u.token = token
-      u.email = email
-    end
-
-    if user.save!
+    if user = User.find_by(user_id: user_id)
+      user.update_attribute(:token, token)
       session['user_id'] = user.user_id
       200
     else
-      500
+      begin
+        user = User.new(
+          user_id: user_id,
+          token: token,
+          email: email,
+          address: ReddcoinAddress.generate(email)
+        )
+
+        if user.save!
+          session['user_id'] = user.user_id
+          200
+        else
+          500
+        end
+      rescue
+        500
+      end
     end
   end
 

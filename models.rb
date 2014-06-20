@@ -14,6 +14,7 @@ class User
 
   has_many :payees
   has_many :subscriptions
+  has_many :payments
 
   index({user_id: 1}, {unique: true, name: 'user_id_index'})
 end
@@ -53,6 +54,9 @@ class Payment
   validates_inclusion_of :type, in: ['Subscription', 'Oneoff']
 
   belongs_to :user
+
+  scope :subscriptions, where(type: 'Subscription')
+  scope :oneoffs, where(type: 'Oneoff')
 end
 
 class ReddcoinAddress

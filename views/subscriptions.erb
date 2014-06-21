@@ -21,8 +21,9 @@
       <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
         <ul class="nav navbar-nav">
           <li><a href="/home"><i class="fa fa-dashboard"></i>  Dashboard</a></li>
-          <li><a href="/payees"><i class="fa fa-users"></i>  Payees</a></li>
+          <li><a href="/recipients"><i class="fa fa-users"></i>  Recipients</a></li>
           <li class='active'><a href="#"><i class="fa fa-calendar"></i>  Subscriptions</a></li>
+          <li><a href="/schedules"><i class="fa fa-clock-o"></i>  Scheduler</a></li>
           <li><a href="/transactions"><i class="fa fa-money"></i>  Transactions</a></li>
           <li><a href="/sessions/destroy"><i class="fa fa-sign-out"></i>  Logout</a></li>
         </ul>
@@ -31,13 +32,13 @@
     <hr class='sep' />
     <div class='container'>
       <div class='content'>
-        <% if @subscriptions %>
+        <% if @subscriptions.count > 0 %>
           <h3>Showing all <%= @subscriptions.count %> subscriptions.</h3>
         <% else %>
           <h3>You don't have any subscriptions yet.</h3>
           <div class='why'>
             <p>
-              A subscriptions allow you to send RDD at a scheduled time and interval (daily, every Monday, etc, etc).<br />
+              A subscription allow you to send RDD at a scheduled time and interval (daily, every Monday, etc, etc) to any of your recipients.<br />
               It only takes a few seconds to create, and you can pause / cancel them at any time.
             </p>
             <p style='text-align:center'>

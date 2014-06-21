@@ -12,14 +12,14 @@ class User
   field :token, type: String
   field :address, type: String
 
-  has_many :payees
+  has_many :recipients
   has_many :subscriptions
   has_many :payments
 
   index({user_id: 1}, {unique: true, name: 'user_id_index'})
 end
 
-class Payee
+class Recipient
   include Mongoid::Document
   include Mongoid::Timestamps
 
@@ -39,7 +39,7 @@ class Subscription
   field :description, type: String
   field :recurrence, type: String
 
-  belongs_to :payee
+  belongs_to :recipient
   belongs_to :user
 end
 

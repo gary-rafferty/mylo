@@ -36,20 +36,20 @@ class Mylo < Sinatra::Base
     erb :home
   end
 
-  get '/payees' do
+  get '/recipients' do
     @user = current_user
-    @payees = @user.payees
+    @recipients = @user.recipients
 
-    erb :payees
+    erb :recipients
   end
 
-  get '/payees/new' do
+  get '/recipients/new' do
     @user = current_user
 
-    erb :new_payees
+    erb :new_recipients
   end
 
-  post '/payees/create' do
+  post '/recipients/create' do
     @user = current_user
 
   end
@@ -64,6 +64,7 @@ class Mylo < Sinatra::Base
   get '/subscriptions/new' do
     @user = current_user
 
+    erb :new_subscriptions
   end
 
   post '/subscriptions/create' do

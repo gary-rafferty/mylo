@@ -21,8 +21,9 @@
       <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
         <ul class="nav navbar-nav">
           <li><a href="/home"><i class="fa fa-dashboard"></i>  Dashboard</a></li>
-          <li class='active'><a href="#"><i class="fa fa-users"></i>  Payees</a></li>
+          <li class='active'><a href="#"><i class="fa fa-users"></i>  Recipients</a></li>
           <li><a href="/subscriptions"><i class="fa fa-calendar"></i>  Subscriptions</a></li>
+          <li><a href="/schedules"><i class="fa fa-clock-o"></i>  Scheduler</a></li>
           <li><a href="/transactions"><i class="fa fa-money"></i>  Transactions</a></li>
           <li><a href="/sessions/destroy"><i class="fa fa-sign-out"></i>  Logout</a></li>
         </ul>
@@ -31,16 +32,16 @@
     <hr class='sep' />
     <div class='container'>
       <div class='content'>
-        <% if @payees.count > 0 %>
-          <h3>Showing all <%= @payees.count %> payees.</h3>
+        <% if @recipients.count > 0 %>
+          <h3>Showing all <%= @recipients.count %> recipients.</h3>
         <% else %>
-          <h3>You don't have any payees yet.</h3>
+          <h3>You don't have any recipients yet.</h3>
           <div class='why'>
             <p>
-              Remembering Reddcoin addresses is HARD; but by using payees, you no longer need to.<br />
+              Remembering Reddcoin addresses is HARD; but by using recipients, you no longer need to.<br />
             </p>
             <p style='text-align:center;'>
-              <a href='/payees/new'>Create one now</a>
+              <a href='/recipients/new'>Create one now</a>
             </p>
           </div>
         <% end %>

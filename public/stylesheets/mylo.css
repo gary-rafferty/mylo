@@ -1,5 +1,4 @@
 body {
-  //background: url('/images/background.jpg') no-repeat center center fixed;
   background: url('/images/bench.jpg') no-repeat center center fixed;
   -webkit-background-size: cover;
   -moz-background-size: cover;
@@ -24,6 +23,19 @@ h1.headline {
   font-size: 90px;
   line-height: 95px;
   text-align:center;
+}
+
+h1.smaller-headline {
+  font-family: 'Allan', Helvetica, Arial, sans-serif;
+  font-size: 40px;
+  line-height: 45px;
+}
+
+h1.smaller-headline img {
+  height: 35px;
+  width:35px;
+  position:relative;
+  top: -5px;
 }
 
 h2.tagline {
@@ -66,4 +78,29 @@ p.description {
   color:#111;
   font-size: 26px;
   text-shadow: 1px 1px 1px #fff;
+}
+
+.page {
+  background-color:#fff;
+  border: 0 1px 0 1px solid #999;
+  box-shadow: 6px 0px 5px -5px #999, -6px 0px 5px -5px #999;
+}
+
+hr.sep {
+  border-top: 2px solid #dac598;
+  width: 80%;
+  margin: 15px auto;
+}
+
+.content h3 {
+  text-align:center;
+}
+
+.why {
+  width: 50%;
+  margin: 40px auto;
+}
+.newpayeeform {
+  width:40%;
+  margin:20px auto;
 }

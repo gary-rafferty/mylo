@@ -33,9 +33,48 @@ class Mylo < Sinatra::Base
   end
 
   get '/home' do
-    'home'
+    erb :home
   end
 
+  get '/payees' do
+    @user = current_user
+    @payees = @user.payees
+
+    erb :payees
+  end
+
+  get '/payees/new' do
+    @user = current_user
+
+    erb :new_payees
+  end
+
+  post '/payees/create' do
+    @user = current_user
+
+  end
+
+  get '/subscriptions' do
+    @user = current_user
+    @subscriptions = @user.subscriptions
+
+    erb :subscriptions
+  end
+
+  get '/subscriptions/new' do
+    @user = current_user
+
+  end
+
+  post '/subscriptions/create' do
+    @user = current_user
+
+  end
+  
+  get '/transactions' do
+    erb :transactions
+  end
+   
   post '/sessions/new' do
     user_id = params[:user_id]
     token = params[:token]

@@ -1,0 +1,49 @@
+<div class='container'>
+  <h1 class='smaller-headline'>
+    <img src='/images/reddcoin.png' />
+    MYLO
+  </h1>
+  <div class='page'>
+    <nav class="navbar navbar-default" role="navigation">
+      <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+          <span class="sr-only">Toggle navigation</span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <!--<a class="navbar-brand" href="#">MYLO</a>-->
+      </div>
+
+      <!-- Collect the nav links, forms, and other content for toggling -->
+      <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+        <ul class="nav navbar-nav">
+          <li><a href="/home"><i class="fa fa-dashboard"></i>  Dashboard</a></li>
+          <li><a href="/payees"><i class="fa fa-users"></i>  Payees</a></li>
+          <li><a href="/subscriptions"><i class="fa fa-calendar"></i>  Subscriptions</a></li>
+          <li><a href="/transactions"><i class="fa fa-money"></i>  Transactions</a></li>
+          <li><a href="/sessions/destroy"><i class="fa fa-sign-out"></i>  Logout</a></li>
+        </ul>
+      </div>
+    </nav>
+    <hr class='sep' />
+    <div class='container'>
+      <div class='content'>
+        <h3>Create a new Payee</h3>
+        <form role="form" class='newpayeeform'>
+          <div class="form-group">
+            <label for="exampleInputEmail1">Name or Label</label>
+            <input type="text" class="form-control" id="payeename" placeholder="Joe's Gym">
+          </div>
+          <div class="form-group">
+            <label for="exampleInputPassword1">Reddcoin Address</label>
+            <input type="text" class="form-control" id="payeeaddress" placeholder="Enter an address">
+          </div>
+          <button type="submit" class="btn btn-default">Create new Payee</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

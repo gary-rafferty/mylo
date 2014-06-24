@@ -1,5 +1,6 @@
 require 'sinatra/base'
 require 'reddcoin'
+require 'recurrence'
 
 require_relative 'models'
 
@@ -50,30 +51,128 @@ class Mylo < Sinatra::Base
   end
 
   post '/recipients/create' do
-    @user = current_user
+    user = current_user
 
+    name = params[:name]
+    address = params[:address]
+
+    user.recipients.create(name: name, address: address)
+  
+    redirect '/recipients' 
   end
 
   get '/subscriptions' do
     @user = current_user
-    @subscriptions = @user.subscriptions
+    @subscriptions = @user.subscriptions.reverse
 
     erb :subscriptions
   end
 
   get '/subscriptions/new' do
     @user = current_user
+    @recipients = @user.recipients
 
     erb :new_subscriptions
   end
 
-  post '/subscriptions/create' do
-    @user = current_user
+  post '/subscriptions/daily/create' do
+    user = current_user
 
+    amount = params[:dailyamount]
+    recipient = params[:recipient]
+    description = params[:description]
+    interval = 'daily'
+
+    recurrence = Recurrence.daily.to_yaml
+
+    subscription = user.subscriptions.build(
+      amount: amount,
+      recipient_id: recipient,
+      description: description,
+      interval: interval,
+      recurrence: recurrence
+    )
+
+    if subscription.save
+      redirect '/subscriptions'
+    else
+      p subscription.errors.inspect
+    end
+  end
+  
+  post '/subscriptions/weekly/create' do
+    user = current_user
+
+    amount = params[:weeklyamount]
+    recipient = params[:recipient]
+    day = params[:day]
+    description = params[:description]
+    interval = 'weekly'
+    
+    recurrence = Recurrence.weekly(on: day.to_sym).to_yaml
+
+    user.subscriptions.create(
+      amount: amount,
+      recipient_id: recipient,
+      description: description,
+      interval: interval,
+      recurrence: recurrence
+    )
+
+    redirect '/subscriptions'
+  end
+  
+  post '/subscriptions/monthly/create' do
+    user = current_user
+
+    amount = params[:monthlyamount]
+    recipient = params[:recipient]
+    day = params[:day].to_i
+    description = params[:description]
+    interval = 'monthly'    
+    
+    recurrence = Recurrence.monthly(on: day).to_yaml
+
+    user.subscriptions.create(
+      amount: amount,
+      recipient_id: recipient,
+      description: description,
+      interval: interval,
+      recurrence: recurrence
+    )
+
+    redirect '/subscriptions'
+  end
+  
+  post '/subscriptions/yearly/create' do
+    user = current_user
+
+    amount = params[:yearlyamount]
+    recipient = params[:recipient]
+    month = params[:month]
+    day = params[:day].to_i
+    description = params[:description]
+    interval = 'yearly'    
+
+    recurrence = Recurrence.yearly(on: [month.to_sym, day]).to_yaml
+
+    user.subscriptions.create(
+      amount: amount,
+      recipient_id: recipient,
+      description: description,
+      interval: interval,
+      recurrence: recurrence
+    )
+
+    redirect '/subscriptions'
   end
   
   get '/transactions' do
     erb :transactions
+  end
+
+  get '/schedules' do
+    erb :schedules
   end
    
   post '/sessions/new' do

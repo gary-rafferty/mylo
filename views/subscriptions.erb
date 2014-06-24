@@ -34,6 +34,34 @@
       <div class='content'>
         <% if @subscriptions.count > 0 %>
           <h3>Showing all <%= @subscriptions.count %> subscriptions.</h3>
+          <br />
+          <a href='/subscriptions/new'>Want to add another?</a>
+          <br /><br />
+          <table class='table table-striped'>
+            <thead>
+              <th>Recipient</th>
+              <th>Amount</th>
+              <th>Frequency</th>
+              <th>Description</th>
+              <th>Next</th>
+              <th>Actions</th>
+            </thead>
+            <tbody>
+              <% @subscriptions.each do |s| %>
+                <tr>
+                  <td><%= s.recipient.name %></td>
+                  <td><%= s.amount %></td>
+                  <td><%= s.interval.capitalize %></td>
+                  <td><%= s.description %></td>
+                  <td><%= s.next_recurrence %></td>
+                  <td>
+                    <a href='' class="btn btn-danger">Delete subscription</a>
+                  </td>
+                </tr>
+              <% end %>
+            </tbody>
+          </table>
+
         <% else %>
           <h3>You don't have any subscriptions yet.</h3>
           <div class='why'>

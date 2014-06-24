@@ -1,0 +1,151 @@
+<script type='text/javascript'>
+  $(function() {
+    $('#myTab a').click(function (e) {
+      e.preventDefault()
+      $(this).tab('show')
+    });
+  });
+</script>
+<div class='container'>
+  <h1 class='smaller-headline'>
+    <img src='/images/reddcoin.png' />
+    MYLO
+  </h1>
+  <div class='page'>
+    <nav class="navbar navbar-default" role="navigation">
+      <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+          <span class="sr-only">Toggle navigation</span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <!--<a class="navbar-brand" href="#">MYLO</a>-->
+      </div>
+
+      <!-- Collect the nav links, forms, and other content for toggling -->
+      <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+        <ul class="nav navbar-nav">
+          <li><a href="/home"><i class="fa fa-dashboard"></i>  Dashboard</a></li>
+          <li><a href="/recipients"><i class="fa fa-users"></i>  Recipients</a></li>
+          <li><a href="/subscriptions"><i class="fa fa-calendar"></i>  Subscriptions</a></li>
+          <li><a href="/schedules"><i class="fa fa-clock-o"></i>  Scheduler</a></li>
+          <li><a href="/transactions"><i class="fa fa-money"></i>  Transactions</a></li>
+          <li><a href="/sessions/destroy"><i class="fa fa-sign-out"></i>  Logout</a></li>
+        </ul>
+      </div>
+    </nav>
+    <hr class='sep' />
+    <div class='content'>
+      <h3>Create a new Subscription</h3>
+      <!-- Nav tabs -->
+      <ul class="nav nav-tabs">
+        <li class="active"><a href="#daily" data-toggle="tab">Daily</a></li>
+        <li><a href="#weekly" data-toggle="tab">Weekly</a></li>
+        <li><a href="#monthly" data-toggle="tab">Monthly</a></li>
+        <li><a href="#yearly" data-toggle="tab">Yearly</a></li>
+      </ul>
+
+      <!-- Tab panes -->
+      <div class="tab-content">
+        <div class="tab-pane active" id="daily">
+          <form class="form-inline" role="form" action='/subscriptions/daily/create' method='POST'>
+            <p>
+              Every day, I would like to send 
+              <input type='text' name='dailyamount' class='dotted-underline' placeholder='5000' />&nbsp;RDD
+              to
+              <select class="form-control input" name='recipient'>
+                <% @recipients.each do |r| %>
+                  <option value='<%= r.id %>'><%= r.name %></option>
+                <% end %>
+              </select>
+              for
+              <input type='text' name='description' class='dotted-underline long' placeholder=' some informative description'>
+            </p>
+            <button type="submit" class="btn btn-success btn-lg">Create daily subscription</button>
+          </form>
+        </div>
+        <div class="tab-pane" id="weekly">
+          <form class="form-inline" role="form" action='/subscriptions/weekly/create' method='POST'>
+            <p>
+              Every&nbsp;
+              <select class="form-control input" name='day'>
+                <option value='monday'>Monday</option>
+                <option value='tuesday'>Tuesday</option>
+                <option value='wednesday'>Wednesday</option>
+                <option value='thursday'>Thursday</option>
+                <option value='friday'>Friday</option>
+                <option value='saturday'>Saturday</option>
+                <option value='sunday'>Sunday</option>
+              </select>
+              &nbsp;I would like to send 
+              <input type='text' name='weeklyamount' class='dotted-underline' placeholder='5000' />&nbsp;RDD
+              to
+              <select class="form-control input" name='recipient'>
+                <% @recipients.each do |r| %>
+                  <option value='<%= r.id %>'><%= r.name %></option>
+                <% end %>
+              </select>
+              for
+              <input type='text' name='description' class='dotted-underline long' placeholder=' some informative description'>
+            </p>
+            <button type="submit" class="btn btn-success btn-lg">Create weekly subscription</button>
+          </form>
+        </div>
+        <div class="tab-pane" id="monthly">
+          <form class="form-inline" role="form" action='/subscriptions/monthly/create' method='POST'>
+            <p>
+              Every month, on  
+              <select class="form-control input" name='day'>
+                <% (1..31).to_a.each do |i| %>
+                  <option value='<%= i%>'><%= i%></option>
+                <% end %>
+              </select>
+              &nbsp;I would like to send 
+              <input type='text' name='monthlyamount' class='dotted-underline' placeholder='5000' />&nbsp;RDD
+              to
+              <select class="form-control input" name='recipient'>
+                <% @recipients.each do |r| %>
+                  <option value='<%= r.id %>'><%= r.name %></option>
+                <% end %>
+              </select>
+              for
+              <input type='text' name='description' class='dotted-underline long' placeholder=' some informative description'>
+            </p>
+            <button type="submit" class="btn btn-success btn-lg">Create monthly subscription</button>
+          </form>
+        </div>
+        <div class="tab-pane" id="yearly">
+          <form class="form-inline" role="form" action='/subscriptions/yearly/create' method='POST'>
+            <p>
+              Every&nbsp;
+              <select class="form-control input" name='month'>
+                <% %w(january february march april may june july august september october november december).each do |m| %>
+                  <option value='<%= m %>'><%= m.capitalize %></option>
+                <% end %>
+              </select>&nbsp;
+              <select class="form-control input" name='day'>
+                <% (1..31).to_a.each do |i| %>
+                  <option value='<%= i %>'><%= i %></option>
+                <% end %>
+              </select>
+              &nbsp;I would like to send 
+              <input type='text' name='yearlyamount' class='dotted-underline' />&nbsp;RDD
+              to
+              <select class="form-control input" name='recipient'>
+                <% @recipients.each do |r| %>
+                  <option value='<%= r.id %>'><%= r.name %></option>
+                <% end %>
+              </select>
+              for
+              <input type='text' name='description' class='dotted-underline long' placeholder=' some informative description'>
+            </p>
+            <button type="submit" class="btn btn-success btn-lg">Create yearly subscription</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

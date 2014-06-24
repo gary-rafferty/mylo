@@ -92,6 +92,11 @@ hr.sep {
   margin: 15px auto;
 }
 
+.content {
+  width: 90%;
+  margin: auto;
+}
+
 .content h3 {
   text-align:center;
 }
@@ -103,4 +108,23 @@ hr.sep {
 .newpayeeform {
   width:40%;
   margin:20px auto;
+}
+#daily, #weekly, #monthly, #yearly {
+  font-size: 20px;
+  margin: 40px auto;
+  height: 170px;
+}
+.dotted-underline {
+  border:0;
+  border-bottom: 2px dotted #dac598;
+  font-size: 24px;
+  line-height: 34px;
+  color: #dac598;
+  width: 100px;
+  text-align:center;
+  outline:none;
+}
+.long {
+  width: 310px;
+  text-align:left;
 }

@@ -38,9 +38,16 @@ class Subscription
   field :amount, type: Integer
   field :description, type: String
   field :recurrence, type: String
+  field :interval, type: String
 
+  validates_inclusion_of :interval, in: ['daily', 'weekly', 'monthly', 'yearly']
+  
   belongs_to :recipient
   belongs_to :user
+
+  def next_recurrence
+    YAML.load(recurrence).next
+  end
 end
 
 class Payment

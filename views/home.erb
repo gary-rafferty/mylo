@@ -30,8 +30,70 @@
       </div>
     </nav>
     <hr class='sep' />
-    <div class='container'>
+    <div class='containerr'>
       <div class='content'>
+        <div class='col-md-5'>
+          <% if @balances['ConfirmedBalance'] > 1000 %>
+            <div class='panel panel-success' id='balance-cont'>
+          <% else %>
+            <div class='panel panel-danger' id='balance-cont'>
+          <% end %>
+            <div class='panel-heading'><h4 class='panel-title'>Current RDD Balance</h4></div>
+            <div class='panel-body'>
+              <% if @balances['ConfirmedBalance'] > 1000 %>
+                <p>Confirmed: <span class='green'><%= @balances['ConfirmedBalance'] %></span></p>
+              <% else %>
+                <p>Confirmed: <span class='red'><%= @balances['ConfirmedBalance'] %></span></p>
+              <% end %>
+              <p>Pending: <%= @balances['PendingDeposits'] %></p>
+            </div>
+          </div>
+          <div class='panel panel-default'>
+            <div class='panel-heading'><h4 class='panel-title'>MYLO Address</h4></div>
+            <div class='panel-body'><%= @user.address %></div>
+          </div>
+          <hr />
+          <div class='panel panel-default'>
+            <div class='panel-heading'><h4 class='panel-title'>Other stuff</h4></div>
+            <div class='panel-body'>
+              <ul>
+                <li>Payment breakdown by recipient (PIE)</li>
+                <li>Quick actions</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+        <div class='col-md-7'>
+          <ul class="timeline">
+            <% @activities.each do |a| %>
+              <% if a.type == 'add-recipient' || a.type == 'add-subscription' %>
+                <li class="timeline-inverted">
+                  <div class="timeline-badge"><i class="glyphicon glyphicon-plus"></i></div>
+                  <div class="timeline-panel">
+                    <div class="timeline-heading">
+                      <h4 class="timeline-title"><%= a.description %></h4>
+                      <p><small class='text-muted'><i class='glyphicon glyphicon-time'></i> <%= a.created_at %></small></p>
+                      <p><small class='text-muted'><a href='<%= a.path %>'>More details</a></small></p>
+                    </div>
+                  </div>
+                </li>
+              <% else %>
+                <li>
+                  <div class="timeline-badge">
+                    <i class="glyphicon glyphicon-check"></i>
+                  </div>
+                  <div class="timeline-panel">
+                    <div class="timeline-heading">
+                      <h4 class="timeline-title"><%= a.description %></h4>
+                      <p><small class="text-muted"><i class="glyphicon glyphicon-time"></i> <%= a.created_at %></small></p>
+                      <p><small class='text-muted'><a href='<%= a.path %>'>More details</a></small></p>
+                    </div>
+                  </div>
+                </li>
+              <% end %>
+            <% end %>
+          </ul>
+        </div>
       </div>
     </div>
   </div>

@@ -6,6 +6,7 @@ gem 'mongoid'
 gem 'dotenv'
 gem 'recurrence'
 gem 'whenever'
+gem 'sidekiq'
 
 group :development do
   gem 'thin'

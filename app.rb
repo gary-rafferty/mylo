@@ -8,7 +8,6 @@ class Mylo < Sinatra::Base
 
   configure do
     enable :sessions
-
     set :session_secret, 'MyloApp'
 
     Dotenv.load
@@ -34,6 +33,13 @@ class Mylo < Sinatra::Base
   end
 
   get '/home' do
+    @user = current_user
+    @balances = @user.current_balance.inject({}) do |hash, (k,v)|
+      hash.merge(k => v.to_f)
+    end
+
+    @activities = @user.activities.limit(10).reverse
+
     erb :home
   end
 
@@ -50,15 +56,35 @@ class Mylo < Sinatra::Base
     erb :new_recipients
   end
 
+  get '/recipients/:id' do
+    id = params[:id]
+
+    if @recipient = Recipient.where(id: id).first
+      erb :recipient
+    else
+      500
+    end
+  end
+
   post '/recipients/create' do
     user = current_user
 
     name = params[:name]
     address = params[:address]
 
-    user.recipients.create(name: name, address: address)
+    recipient = user.recipients.build(name: name, address: address)
   
-    redirect '/recipients' 
+    if recipient.save
+      user.activities.create(
+        type: 'add-recipient',
+        description: 'Added a new recipient',
+        path: '/recipients/'+recipient.id
+      )
+    
+      redirect '/recipients' 
+    else
+      p recipient.errors.inspect
+    end
   end
 
   get '/subscriptions' do
@@ -73,6 +99,16 @@ class Mylo < Sinatra::Base
     @recipients = @user.recipients
 
     erb :new_subscriptions
+  end
+
+  get '/subscriptions/:id' do
+    id = params[:id]
+
+    if @subscription = Subscription.where(id: id).first
+      erb :subscription
+    else
+      500
+    end
   end
 
   post '/subscriptions/daily/create' do
@@ -94,6 +130,11 @@ class Mylo < Sinatra::Base
     )
 
     if subscription.save
+      user.activities.create(
+        type: 'add-subscription',
+        description: 'Added a new subscription',
+        path: '/subscriptions/'+subscription.id
+      )
       redirect '/subscriptions'
     else
       p subscription.errors.inspect
@@ -111,7 +152,7 @@ class Mylo < Sinatra::Base
     
     recurrence = Recurrence.weekly(on: day.to_sym).to_yaml
 
-    user.subscriptions.create(
+    subscription = user.subscriptions.build(
       amount: amount,
       recipient_id: recipient,
       description: description,
@@ -119,7 +160,16 @@ class Mylo < Sinatra::Base
       recurrence: recurrence
     )
 
-    redirect '/subscriptions'
+    if subscription.save
+      user.activities.create(
+        type: 'add-subscription',
+        description: 'Added a new subscription',
+        path: '/subscriptions/'+subscription.id
+      )
+      redirect '/subscriptions'
+    else
+      p subscription.errors.inspect
+    end
   end
   
   post '/subscriptions/monthly/create' do
@@ -133,7 +183,7 @@ class Mylo < Sinatra::Base
     
     recurrence = Recurrence.monthly(on: day).to_yaml
 
-    user.subscriptions.create(
+    subscription = user.subscriptions.build(
       amount: amount,
       recipient_id: recipient,
       description: description,
@@ -141,7 +191,16 @@ class Mylo < Sinatra::Base
       recurrence: recurrence
     )
 
-    redirect '/subscriptions'
+    if subscription.save
+      user.activities.create(
+        type: 'add-subscription',
+        description: 'Added a new subscription',
+        path: '/subscriptions/'+subscription.id
+      )
+      redirect '/subscriptions'
+    else
+      p subscription.errors.inspect
+    end
   end
   
   post '/subscriptions/yearly/create' do
@@ -156,7 +215,7 @@ class Mylo < Sinatra::Base
 
     recurrence = Recurrence.yearly(on: [month.to_sym, day]).to_yaml
 
-    user.subscriptions.create(
+    subscription = user.subscriptions.build(
       amount: amount,
       recipient_id: recipient,
       description: description,
@@ -164,7 +223,16 @@ class Mylo < Sinatra::Base
       recurrence: recurrence
     )
 
-    redirect '/subscriptions'
+    if subscription.save
+      user.activities.create(
+        type: 'add-subscription',
+        description: 'Added a new subscription',
+        path: '/subscriptions/'+subscription.id
+      )
+      redirect '/subscriptions'
+    else
+      p subscription.errors.inspect
+    end
   end
   
   get '/transactions' do

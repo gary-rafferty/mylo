@@ -15,8 +15,16 @@ class User
   has_many :recipients
   has_many :subscriptions
   has_many :payments
+  has_many :activities
 
   index({user_id: 1}, {unique: true, name: 'user_id_index'})
+
+  def current_balance
+    client = Reddcoin::Client.new(get: ENV['GET_KEY'], post: ENV['POST_KEY'])
+    balance = client.get_user_balance_detail(email)
+
+    balance
+  end
 end
 
 class Recipient
@@ -64,6 +72,17 @@ class Payment
 
   scope :subscriptions, where(type: 'Subscription')
   scope :oneoffs, where(type: 'Oneoff')
+end
+
+class Activity
+  include Mongoid::Document
+  include Mongoid::Timestamps
+
+  field :type, type: String
+  field :description, type: String
+  field :path, type: String
+
+  belongs_to :user
 end
 
 class ReddcoinAddress

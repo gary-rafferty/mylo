@@ -1,8 +1,11 @@
 require 'sinatra/base'
 require 'reddcoin'
 require 'recurrence'
+require 'sidekiq'
+require 'active_support/core_ext'
 
 require_relative 'models'
+require_relative 'workers'
 
 class Mylo < Sinatra::Base
 
@@ -240,7 +243,25 @@ class Mylo < Sinatra::Base
   end
 
   get '/schedules' do
+    @user = current_user
+    @recipients = @user.recipients
+
     erb :schedules
+  end
+
+  post '/schedules/create' do
+    user = current_user
+
+    quantity = params[:quantity].to_i
+    interval = params[:interval]
+    amount   = params[:amount].to_i
+    recipient= params[:recipient].to_s
+
+    time = quantity.send(interval.to_sym)
+ 
+    ScheduledPaymentWorker.perform_in(time, user.id.to_s, recipient, amount)
+
+    redirect '/schedules' # should go to a success page
   end
    
   post '/sessions/new' do

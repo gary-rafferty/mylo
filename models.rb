@@ -25,6 +25,24 @@ class User
 
     balance
   end
+
+  def send_payment(recipient, amount)
+    client = Reddcoin::Client.new(get: ENV['GET_KEY'], post: ENV['POST_KEY'])
+
+    if response = client.send_to_address(email, recipient.address, amount)
+      response
+    else
+      raise APIError.new('Error creating payment')
+    end
+  end
+
+  def handle_subscriptions
+    subscriptions.each do |s|
+      if s.next_recurrence.include? Date.today
+        s.fulfil
+      end
+    end
+  end
 end
 
 class Recipient
@@ -55,6 +73,20 @@ class Subscription
 
   def next_recurrence
     YAML.load(recurrence).next
+  end
+
+  def fulfil
+    begin
+      txid = user.send_payment(recipient, amount)
+      
+      user.activities.create(
+        type: 'fulfil-subscription',
+        description: 'Fulfilled a subscription payment to '+recipient.name,
+        path: '/transactions/'+txid
+      )
+    rescue
+      #
+    end
   end
 end
 

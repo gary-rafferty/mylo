@@ -10,16 +10,11 @@ class ScheduledPaymentWorker
     begin
       txid = user.send_payment(recipient, amount)
 
-      activity = user.activity.build(
+      user.activities.create(
         type: 'scheduled-payment',
-        description: 'Made a scheduled payment for '+amount+' to '+recipient.name,
+        description: 'Made a scheduled payment of '+amount.to_s+' to '+recipient.name,
         path: '/transactions/'+txid
       )
-      
-      if activity.save
-      else
-        p activity.errors.inspect
-      end
     rescue
       # handle
     end

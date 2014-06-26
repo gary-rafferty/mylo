@@ -7,6 +7,7 @@ gem 'dotenv'
 gem 'recurrence'
 gem 'whenever'
 gem 'sidekiq'
+gem 'activesupport'
 
 group :development do
   gem 'thin'

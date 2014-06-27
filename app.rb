@@ -41,7 +41,7 @@ class Mylo < Sinatra::Base
       hash.merge(k => v.to_f)
     end
 
-    @activities = @user.activities.limit(10).reverse
+    @activities = @user.activities.limit(5)
 
     erb :home
   end
@@ -92,7 +92,7 @@ class Mylo < Sinatra::Base
 
   get '/subscriptions' do
     @user = current_user
-    @subscriptions = @user.subscriptions.reverse
+    @subscriptions = @user.subscriptions
 
     erb :subscriptions
   end

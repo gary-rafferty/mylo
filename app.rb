@@ -297,6 +297,10 @@ class Mylo < Sinatra::Base
     end
   end
 
+  get '/faq' do
+    erb :faq
+  end
+
   get '/sessions/destroy' do
     session.clear
     redirect '/'

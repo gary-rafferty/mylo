@@ -24,40 +24,32 @@
           <li><a href="/recipients"><i class="fa fa-users"></i>  Recipients</a></li>
           <li><a href="/subscriptions"><i class="fa fa-calendar"></i>  Subscriptions</a></li>
           <li><a href="/schedules"><i class="fa fa-clock-o"></i>  Scheduler</a></li>
-          <li class='active'><a href="/transactions"><i class="fa fa-money"></i>  Transactions</a></li>
-          <li><a href="/faq"><i class="fa fa-question"></i>  FAQ</a></li>
+          <li><a href="/transactions"><i class="fa fa-money"></i>  Transactions</a></li>
+          <li class='active'><a href="/faq"><i class="fa fa-question"></i>  FAQ</a></li>
           <li><a href="/sessions/destroy"><i class="fa fa-sign-out"></i>  Logout</a></li>
         </ul>
       </div>
-      <hr class='sep' />
-      <div class='container'>
-        <div class='content'>
-          <% if @transactions.count > 0 %>
-            <h3>Showing all <%= @transactions.count %> transactions.</h3>
-            <br /><br />
-            <div class='table-responsive'>
-              <table class='table table-striped'>
-                <thead>
-                  <th>Type</th>
-                  <th>Description</th>
-                  <th>More info</th>
-                </thead>
-                <tbody>
-                  <% @transactions.each do |t| %>
-                    <tr>
-                      <td><%= t.type %></td>
-                      <td><%= t.description %></td>
-                      <td><a target='_blank' href='http://bitinfocharts.com/reddcoin/tx/<%= t.path.split('/').last %>'>View transaction</a></td>
-                    </tr>
-                  <% end %>
-                </tbody>
-              </table>
-            </div>
-          <% else %>
-            <h3>No transactions as of yet</h3>
-          <% end %>
-        </div>
-      </div>
     </nav>
+    <hr class='sep' />
+    <div class='container'>
+      <h3>What is MYLO?</h3>
+      <p>
+        MYLO is an application that allows you to automate Reddcoin payments. The payments can be recurring or once-off.
+      </p>
+      <h3>What are recipients?</h3>
+      <p>
+        Recepients are simply labels that represent Reddcoin addresses. It's much easier to remember names than it is to remember Reddcoin addresses. 
+      </p>
+      <h3>What are subscriptions?</h3>
+      <p>
+        Subscriptions are recurring payments to recipients. You can create daily, weekly, monthly, and annual subscriptions. 
+      </p>
+      <h3>How does the scheduler work?</h3>
+      <p>
+        The scheduler does exactly what you would expect it to; it allows you to schedule the transfer of Reddcoins to one of your recipients.
+      </p>
+      <h3>How much does it cost?</h3>
+      <p>MYLO charges 1% of all transactions.</p>
+    </div>
   </div>
 </div>

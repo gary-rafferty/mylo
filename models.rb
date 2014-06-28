@@ -38,7 +38,7 @@ class User
 
   def handle_subscriptions
     subscriptions.each do |s|
-      if s.next_recurrence.include? Date.today
+      if s.due_today?
         s.fulfil
       end
     end
@@ -75,35 +75,23 @@ class Subscription
     YAML.load(recurrence).next
   end
 
+  def due_today?
+    YAML.load(recurrence).include? Date.today
+  end
+
   def fulfil
     begin
       txid = user.send_payment(recipient, amount)
       
       user.activities.create(
         type: 'fulfil-subscription',
-        description: 'Fulfilled a subscription payment to '+recipient.name,
+        description: 'Fulfilled a subscription payment for '+amount.to_s+' to '+recipient.name,
         path: '/transactions/'+txid
       )
     rescue
       #
     end
   end
-end
-
-class Payment
-  include Mongoid::Document
-  include Mongoid::Timestamps
-
-  field :amount, type: Integer
-  field :address, type: String
-  field :type, type: String
-
-  validates_inclusion_of :type, in: ['Subscription', 'Oneoff']
-
-  belongs_to :user
-
-  scope :subscriptions, where(type: 'Subscription')
-  scope :oneoffs, where(type: 'Oneoff')
 end
 
 class Activity
@@ -115,6 +103,8 @@ class Activity
   field :path, type: String
 
   belongs_to :user
+
+  scope :transactions, where(:type.in => ['scheduled-payment','fulfil-subscription'])
 end
 
 class ReddcoinAddress
@@ -129,5 +119,3 @@ class ReddcoinAddress
     end
   end
 end
-
-

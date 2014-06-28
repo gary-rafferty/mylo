@@ -239,7 +239,8 @@ class Mylo < Sinatra::Base
   end
   
   get '/transactions' do
-    @transactions = Activity.transactions
+    @user = current_user
+    @transactions = @user.activities.transactions
 
     erb :transactions
   end

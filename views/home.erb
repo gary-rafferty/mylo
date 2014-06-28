@@ -20,7 +20,7 @@
       <!-- Collect the nav links, forms, and other content for toggling -->
       <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
         <ul class="nav navbar-nav">
-          <li class="active"><a href="#"><i class="fa fa-dashboard"></i>  Dashboard</a></li>
+          <li class="active"><a href="/dashboard"><i class="fa fa-dashboard"></i>  Dashboard</a></li>
           <li><a href="/recipients"><i class="fa fa-users"></i>  Recipients</a></li>
           <li><a href="/subscriptions"><i class="fa fa-calendar"></i>  Subscriptions</a></li>
           <li><a href="/schedules"><i class="fa fa-clock-o"></i>  Scheduler</a></li>
@@ -73,7 +73,6 @@
                     <div class="timeline-heading">
                       <h4 class="timeline-title"><%= a.description %></h4>
                       <p><small class='text-muted'><i class='glyphicon glyphicon-time'></i> <%= a.created_at %></small></p>
-                      <p><small class='text-muted'><a href='<%= a.path %>'>More details</a></small></p>
                     </div>
                   </div>
                 </li>
@@ -86,7 +85,6 @@
                     <div class="timeline-heading">
                       <h4 class="timeline-title"><%= a.description %></h4>
                       <p><small class="text-muted"><i class="glyphicon glyphicon-time"></i> <%= a.created_at %></small></p>
-                      <p><small class='text-muted'><a href='<%= a.path %>'>More details</a></small></p>
                     </div>
                   </div>
                 </li>

@@ -28,6 +28,35 @@
           <li><a href="/sessions/destroy"><i class="fa fa-sign-out"></i>  Logout</a></li>
         </ul>
       </div>
+      <hr class='sep' />
+      <div class='container'>
+        <div class='content'>
+          <% if @transactions.count > 0 %>
+            <h3>Showing all <%= @transactions.count %> transactions.</h3>
+            <br /><br />
+            <div class='table-responsive'>
+              <table class='table table-striped'>
+                <thead>
+                  <th>Type</th>
+                  <th>Description</th>
+                  <th>More info</th>
+                </thead>
+                <tbody>
+                  <% @transactions.each do |t| %>
+                    <tr>
+                      <td><%= t.type %></td>
+                      <td><%= t.description %></td>
+                      <td><a target='_blank' href='http://bitinfocharts.com/reddcoin/tx/<%= t.path.split('/').last %>'>View transaction</a></td>
+                    </tr>
+                  <% end %>
+                </tbody>
+              </table>
+            </div>
+          <% else %>
+            <h3>No transactions as of yet</h3>
+          <% end %>
+        </div>
+      </div>
     </nav>
   </div>
 </div>

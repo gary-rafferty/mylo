@@ -4,3 +4,4 @@
 *.rdb
 TODO
 *.pem
+*.DS_Store

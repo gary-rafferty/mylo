@@ -3,6 +3,7 @@ require 'reddcoin'
 require 'recurrence'
 require 'sidekiq'
 require 'active_support/core_ext'
+require 'rollbar'
 
 require_relative 'models'
 require_relative 'workers'
@@ -15,6 +16,10 @@ class Mylo < Sinatra::Base
 
     Dotenv.load
     Mongoid.load!('mongoid.yml')
+
+    Rollbar.configure do |config|
+      config.access_token = ENV['ROLLBAR_ACCESS_TOKEN']
+    end
   end
 
   helpers do

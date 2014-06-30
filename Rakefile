@@ -11,6 +11,7 @@ Rake::TestTask.new do |t|
   t.verbose = true
 end
 
+desc 'Start the subscription worker'
 task :worker do
   require './app'
   

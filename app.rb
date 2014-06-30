@@ -273,6 +273,7 @@ class Mylo < Sinatra::Base
   end
    
   post '/sessions/new' do
+    p params.inspect
     user_id = params[:user_id]
     token = params[:token]
     email = params[:email]

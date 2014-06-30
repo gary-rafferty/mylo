@@ -4,6 +4,7 @@ require 'recurrence'
 require 'sidekiq'
 require 'active_support/core_ext'
 require 'rollbar'
+require 'pony'
 
 require_relative 'models'
 require_relative 'workers'
@@ -273,7 +274,6 @@ class Mylo < Sinatra::Base
   end
    
   post '/sessions/new' do
-    p params.inspect
     user_id = params[:user_id]
     token = params[:token]
     email = params[:email]

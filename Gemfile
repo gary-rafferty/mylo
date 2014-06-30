@@ -13,6 +13,7 @@ gem 'activesupport'
 gem 'rollbar'
 gem 'unicorn'
 gem 'thin'
+gem 'pony'
 
 group :development do
   gem 'shotgun'

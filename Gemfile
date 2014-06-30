@@ -10,8 +10,8 @@ gem 'sidekiq'
 gem 'activesupport'
 gem 'rollbar'
 gem 'unicorn'
+gem 'thin'
 
 group :development do
-  gem 'thin'
   gem 'shotgun'
 end

@@ -1,7 +1,7 @@
 <script type='text/javascript'>
   $(function() {
     $('#loginbutton').facebook_login({
-      appId: '1433703976890742',
+      appId: '<%= ENV['FACEBOOK_APP_ID']; %>',
       endpoint: '/sessions/new',
       onSuccess: function(data) {
         window.location.href = '/';

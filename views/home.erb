@@ -31,6 +31,13 @@
       </div>
     </nav>
     <hr class='sep' />
+    <div class="alert alert-info" role="alert">
+      <div class='container'>
+        MYLO is under active development and should be considered 'experimental'.<br />
+        It is being built for the <a href='http://www.reddit.com/r/reddCoin/comments/27tc1q/update_reddapi_app_competition_10_million/'>ReddAPI app contest</a>. 
+        Please bear with me whilst I iron out some bugs and improve the UX of the app. Thanks, G. 30/06/14
+      </div>
+    </div>
     <div class='containerr'>
       <div class='content'>
         <div class='col-md-5'>
@@ -43,10 +50,12 @@
             <div class='panel-body'>
               <% if @balances['ConfirmedBalance'] > 1000 %>
                 <p>Confirmed: <span class='green'><%= @balances['ConfirmedBalance'] %></span></p>
+                <p>Pending: <%= @balances['PendingDeposits'] %></p>
               <% else %>
                 <p>Confirmed: <span class='red'><%= @balances['ConfirmedBalance'] %></span></p>
+                <p>Pending: <%= @balances['PendingDeposits'] %></p>
+                <p>Send RDD to your MYLO address below to get started</p>
               <% end %>
-              <p>Pending: <%= @balances['PendingDeposits'] %></p>
             </div>
           </div>
           <div class='panel panel-default'>
@@ -55,11 +64,12 @@
           </div>
           <hr />
           <div class='panel panel-default'>
-            <div class='panel-heading'><h4 class='panel-title'>Other stuff</h4></div>
+            <div class='panel-heading'><h4 class='panel-title'>Coming Soon</h4></div>
             <div class='panel-body'>
               <ul>
                 <li>Upcoming subscriptions due</li>
-                <li></li>
+                <li>Activity graph by type</li>
+                <li>Quick actions</li>
               </ul>
             </div>
           </div>

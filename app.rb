@@ -291,13 +291,15 @@ class Mylo < Sinatra::Base
           address: ReddcoinAddress.generate(email)
         )
 
-        if user.save!
+        if user.save
           session['user_id'] = user.user_id
           200
         else
+          p user.errors.inspect
           500
         end
-      rescue
+      rescue Exception => e
+        Rollbar.report_exception(e)
         500
       end
     end

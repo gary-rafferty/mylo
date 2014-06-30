@@ -10,3 +10,9 @@ Rake::TestTask.new do |t|
   t.test_files = FileList['test/*.rb']
   t.verbose = true
 end
+
+task :worker do
+  require './app'
+  require './workers'
+  SubscriptionWorker.perform_async
+end

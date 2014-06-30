@@ -15,7 +15,6 @@ class User
   has_many :recipients, order: :created_at.desc
   has_many :subscriptions, order: :created_at.desc
   has_many :activities, order: :created_at.desc
-  has_many :payments
 
   index({user_id: 1}, {unique: true, name: 'user_id_index'})
 

@@ -9,6 +9,7 @@ gem 'whenever'
 gem 'sidekiq'
 gem 'activesupport'
 gem 'rollbar'
+gem 'unicorn'
 
 group :development do
   gem 'thin'

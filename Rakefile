@@ -13,6 +13,6 @@ end
 
 task :worker do
   require './app'
-  require './workers'
+  
   SubscriptionWorker.perform_async
 end

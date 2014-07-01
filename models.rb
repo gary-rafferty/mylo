@@ -82,14 +82,27 @@ class Subscription
     begin
       txid = user.send_payment(recipient, amount)
       
+      advance_recurrence!
+
       user.activities.create(
         type: 'fulfil-subscription',
         description: 'Fulfilled a subscription payment for '+amount.to_s+' to '+recipient.name,
         path: '/transactions/'+txid
       )
-    rescue
-      #
+    rescue Exception => e
+      Rollbar.report_exception(e)
     end
+  end
+
+  private
+
+  def advance_recurrence!
+    recurrence_obj = YAML.load(recurrence)
+    recurrence_obj.next!
+
+    advanced_recurrence = recurrence_obj.to_yaml
+
+    self.update_attributes(recurrence: advanced_recurrence)
   end
 end
 

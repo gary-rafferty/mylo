@@ -57,7 +57,10 @@
                     <td><%= s.description %></td>
                     <td><%= s.next_recurrence %></td>
                     <td>
-                      <a href='' class="btn btn-danger">Delete subscription</a>
+                      <form method='POST' action='/subscriptions/<%= s.id %>'>
+                        <input type='hidden' name='_method' value='DELETE' />
+                        <button class='btn btn-danger'>Delete subscription</button>
+                      </form>
                     </td>
                   </tr>
                 <% end %>

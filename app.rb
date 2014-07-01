@@ -266,7 +266,25 @@ class Mylo < Sinatra::Base
 
     end
   end
-  
+ 
+  delete '/subscriptions/:id' do
+    user = current_user
+
+    subscription = Subscription.where(id: params[:id]).first
+
+    if subscription.destroy
+      user.activities.create(
+        type: 'delete-subscription',
+        description: 'Removed a subscription',
+        path: '#'
+      )
+
+      redirect '/subscriptions'
+    else
+      
+    end
+  end
+ 
   get '/transactions' do
     @user = current_user
     @transactions = @user.activities.transactions

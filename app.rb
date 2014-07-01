@@ -146,7 +146,7 @@ class Mylo < Sinatra::Base
       )
       redirect '/subscriptions'
     else
-      p subscription.errors.inspect
+
     end
   end
   
@@ -177,7 +177,7 @@ class Mylo < Sinatra::Base
       )
       redirect '/subscriptions'
     else
-      p subscription.errors.inspect
+
     end
   end
   
@@ -208,7 +208,7 @@ class Mylo < Sinatra::Base
       )
       redirect '/subscriptions'
     else
-      p subscription.errors.inspect
+
     end
   end
   
@@ -240,7 +240,7 @@ class Mylo < Sinatra::Base
       )
       redirect '/subscriptions'
     else
-      p subscription.errors.inspect
+
     end
   end
   
@@ -295,7 +295,6 @@ class Mylo < Sinatra::Base
           session['user_id'] = user.user_id
           200
         else
-          p user.errors.inspect
           500
         end
       rescue Exception => e

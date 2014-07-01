@@ -29,9 +29,13 @@ class User
     client = Reddcoin::Client.new(get: ENV['GET_KEY'], post: ENV['POST_KEY'])
 
     if response = client.send_to_address(email, recipient.address, amount)
-      response
+      if response.is_a? Hash and response.has_key? 'ErrorMessage'
+        raise APIError.new('Error creating payment of '+amount.to_s+' to '+recipient.id.to_s+' for '+id.to_s)
+      else
+        response
+      end
     else
-      raise APIError.new('Error creating payment')
+      raise APIError.new('Error creating payment of '+amount.to_s+' to '+recipient.id.to_s+' for '+id.to_s)
     end
   end
 

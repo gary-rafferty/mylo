@@ -316,6 +316,9 @@ class Mylo < Sinatra::Base
 
         if user.save
           session['user_id'] = user.user_id
+
+          EmailWorker.perform_async(user.id, 'welcome')
+
           200
         else
           500

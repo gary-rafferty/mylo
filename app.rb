@@ -13,6 +13,7 @@ class Mylo < Sinatra::Base
 
   configure do
     enable :sessions
+    enable :method_override
     set :session_secret, 'MyloApp'
 
     Dotenv.load
@@ -92,7 +93,29 @@ class Mylo < Sinatra::Base
     
       redirect '/recipients' 
     else
-      p recipient.errors.inspect
+
+    end
+  end
+
+  delete '/recipients/:id' do
+    user = current_user
+
+    recipient = Recipient.where(id: params[:id]).first
+
+    recipient.subscriptions.each { |s| s.destroy }
+    
+    name = recipient.name
+
+    if recipient.destroy
+      user.activities.create(
+        type: 'delete-recipient',
+        description: 'Removed '+name+' as a recipient',
+        path: '#'
+      )
+
+      redirect '/recipients'
+    else
+      
     end
   end
 

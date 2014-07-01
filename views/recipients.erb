@@ -53,7 +53,10 @@
                     <td><%= r.address %></td>
                     <td><%= r.subscriptions.count %></td>
                     <td>
-                      <a href='' class="btn btn-danger">Delete recipient</a>
+                      <form method='POST' action='/recipients/<%= r.id%>'>
+                        <input type='hidden' name='_method' value='DELETE' />
+                        <button class='btn btn-danger'>Delete recipient</button>
+                      </form>
                     </td>
                   </tr>
                 <% end %>

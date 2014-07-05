@@ -34,6 +34,14 @@ class Mylo < Sinatra::Base
     end
   end
 
+  before do
+    pass if ['sessions', nil].include? request.path_info.split('/')[1]
+    
+    if !logged_in?
+      redirect '/'
+    end
+  end
+
   get '/' do
     if logged_in?
       redirect '/home'

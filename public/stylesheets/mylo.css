@@ -11,7 +11,7 @@ body {
 
 .block {
   background-color:rgba(0,0,0,0.5);
-  padding: 12px;
+  padding: 1px 0 3px 0;
 }
 
 .block h1 {
@@ -62,7 +62,7 @@ h2.tagline {
 h3.feature {
   font-weight: bold;
   font-family: 'Allan', Helvetica, Arial, sans-serif;
-  font-size: 54px;
+  font-size: 44px;
   color: #fff;
   text-align:center;
   text-shadow: 1px 1px 0 #111;
@@ -72,9 +72,10 @@ h3.feature {
 p.description {
   font-family: 'Cardo', Helvetica, sans-serif;
   width: 100%;
-  padding:5%;
   text-align:center;
-  background:rgba(218, 197, 152, 0.5);;
+  background:rgba(218, 197, 152, 0.6);;
+  border-top: 1px solid silver;
+  border-bottom: 1px solid silver;
   color:#111;
   font-size: 26px;
   text-shadow: 1px 1px 1px #fff;
